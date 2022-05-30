@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'bootstrap5',
     'alumnos.apps.AlumnosConfig',
     'django.contrib.admin',
     'django.contrib.auth',
