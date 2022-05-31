@@ -5,13 +5,13 @@
 {% block cuerpo %}
 
 <main>
-  <h1 class="fs-3 text text-center text-primary pt-3">Registro de alumnos</h1>
+  <h1 class="fs-3 text text-center text-primary pt-3">Registro de profesores y directivos</h1>
 </main>
 
 <div class="container py-3">     
     <div class="row">
       <div class="col">
-          {% if personas %}
+          {% if profesores %}
           <table class="table">
               <thead>
                   <th scope="col">Identificador</th>
@@ -19,11 +19,12 @@
                   <th scope="col">Apellido</th>
                   <th scope="col">Email</th>
                   <th scope="col">Fecha de Nacimiento</th>
-                  <th scope="col">Promoción</th>
+                  <th scope="col">Cargo</th>
+                  <th scope="col">Título habilitante</th>
                   <th scope="col">Acciones</th>
               </thead>
           
-              {% for p in personas %}
+              {% for p in profesores %}
               <tbody>
                   <tr>
                       <th scope="row">{{p.id}} </th>
@@ -31,15 +32,16 @@
                       <td> {{p.apellido}} </td>
                       <td> {{p.email}} </td>
                       <td> {{p.fecha_nacimiento}} </td>
-                      <td> {{p.promocion}}</td>
-                      {% url 'borrar' identificador=p.id as borrar_url %}
-                      <td>{% bootstrap_button "Borrar" size="sm" button_class="btn-danger" button_type="link" href=borrar_url %}</td>
+                      <td> {{p.cargo}}</td>
+                      <td> {{p.titulo_habilitante}}</td>
+                      {% url 'borrarp' identificador=p.id as borrarp_url %}
+                      <td>{% bootstrap_button "Borrar" size="sm" button_class="btn-danger" button_type="link" href=borrarp_url %}</td>
                   </tr>  
               </tbody>
               {% endfor %}
           </table>
           {% else %}
-              <p>No tienes alumnos cargados</p>
+              <p>No tienes profesores cargados</p>
           {% endif %}
       </div>
     </div>
@@ -47,10 +49,10 @@
   
   <div class="row text-center w-100">
       <div class="col pb-3">
-        {% url 'agregar' as agregar_url %}
-        {% url 'buscar' as buscar_url %}
-        {% bootstrap_button "Agregar" button_class="btn-primary" button_type="link" href=agregar_url %} 
-        {% bootstrap_button "Buscar" button_class="btn-primary" button_type="link" href=buscar_url %}  
+        {% url 'agregarp' as agregarp_url %}
+        {% url 'buscarp' as buscarp_url %}
+        {% bootstrap_button "Agregar" button_class="btn-primary" button_type="link" href=agregarp_url %} 
+        {% bootstrap_button "Buscar" button_class="btn-primary" button_type="link" href=buscarp_url %}  
       <div>
     <div>
 <div class="py-3">

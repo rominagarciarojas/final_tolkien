@@ -6,12 +6,12 @@
 <div class="container">
    <div class="row">
      <div class="col">
-      <h3 class="py-2 text-primary text-center">Carga de alumnos</h3>
+      <h3 class="py-2 text-primary text-center">Carga de Profesores</h3>
      </div>
      </div>
      <div class="row">
      <div class="col">
-      <form action="{% url 'agregar' %}" method="post">
+      <form action="{% url 'agregarp' %}" method="post">
          {% csrf_token %} 
          {% bootstrap_form form %}
          {% bootstrap_button "Guardar" button_type="submit" button_class="btn-primary" %}
