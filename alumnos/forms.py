@@ -22,8 +22,22 @@ class ProfesorForm(forms.Form):
     titulo_habilitante = forms.CharField(label="Título habilitante", max_length=100)
     cargo = forms.CharField(label="Cargo", max_length=30)
 
+
+class MateriasForm(forms.Form):
+    materia = forms.CharField(label="Nombre de asignatura", max_length=200)
+    curso = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': "1"}))
+    docente = forms.CharField(label="Docente a cargo")
+    modalidad = forms.CharField(label="Modalidad", max_length=30)
+
+
 class BuscarPersonasForm(forms.Form):
     palabra_a_buscar = forms.CharField(label="Buscar")
 
 class BuscarProfesoresForm(forms.Form):
     palabra_a_buscar = forms.CharField(label="Buscar")
+
+class BuscarMateriasForm(forms.Form):
+    palabra_a_buscar = forms.CharField(label="Buscar")
+
+class ActualizarPersonaForm(PersonaForm):
+    id = forms.IntegerField(widget = forms.HiddenInput())

@@ -1,0 +1,56 @@
+{% extends "alumnos/index.html" %}
+
+{% load bootstrap5 %}
+
+{% block cuerpo %}
+
+<main>
+  <h1 class="fs-3 text text-center text-primary pt-3">Registro de asignaturas</h1>
+</main>
+
+<div class="container py-3">     
+    <div class="row">
+      <div class="col">
+          {% if materias %}
+          <table class="table">
+              <thead>
+                  <th scope="col">Identificador</th>
+                  <th scope="col">Asignatura</th>
+                  <th scope="col">Curso</th>
+                  <th scope="col">Docente</th>
+                  <th scope="col">Modalidad</th>
+                  <th scope="col">Acciones</th>
+              </thead>
+          
+              {% for m in materias %}
+              <tbody>
+                  <tr>
+                      <th scope="row">{{m.id}}</th>
+                      <td> {{m.materia}}</td>
+                      <td> {{m.curso}}º Año</td>
+                      <td> {{m.docente}}</td>
+                      <td> {{m.modalidad}}</td>
+                      {% url 'borrarm' identificador=m.id as borrarm_url %}
+                      <td>{% bootstrap_button "Borrar" size="sm" button_class="btn-danger" button_type="link" href=borrarm_url %}</td>
+                  </tr>  
+              </tbody>
+              {% endfor %}
+          </table>
+          {% else %}
+              <p>No tienes alumnos, docentes ni directivos cargados</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>    
+    
+    <div class="row text-center w-100">
+        <div class="col pb-3">
+          {% url 'agregarm' as agregarm_url %}
+          {% url 'buscarm' as buscarm_url %}
+          {% bootstrap_button "Agregar" button_class="btn-primary" button_type="link" href=agregarm_url %} 
+          {% bootstrap_button "Buscar" button_class="btn-primary" button_type="link" href=buscarm_url %}  
+        <div>
+      <div>
+  <div class="py-3">
+  {% endblock %}
+  </div>     
