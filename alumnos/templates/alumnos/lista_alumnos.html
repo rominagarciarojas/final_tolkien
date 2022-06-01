@@ -34,8 +34,8 @@
                       <td> {{p.promocion}}</td>
                       <td>
                         {% url 'borrar' identificador=p.id as borrar_url %}
-                        {% bootstrap_button "Borrar" size="sm" button_class="btn-danger" button_type="link" href=borrar_url %}
                         {% url 'actualizar' identificador=p.id as actualizar_url %} 
+                        {% bootstrap_button "Borrar" size="sm" button_class="btn-danger" button_type="link" href=borrar_url %}
                         {% bootstrap_button "Actualizar" size="sm" button_class="btn-success" button_type="link" href=actualizar_url %}
                       </td>
                   </tr>  
@@ -48,7 +48,7 @@
       </div>
     </div>
   </div>    
-  {% endblock %}
+
   <div class="row text-center w-100">
       <div class="col pb-3">
         {% url 'agregar' as agregar_url %}
@@ -58,5 +58,5 @@
       <div>
     <div>
 <div class="py-3">
-
+  {% endblock %}
 </div>
