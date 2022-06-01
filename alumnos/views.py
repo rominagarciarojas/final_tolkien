@@ -26,10 +26,6 @@ def registroa(request):
 
 
 def agregar(request):
-    '''
-    TODO: agregar un mensaje en el template index.html que avise al usuario que 
-    la persona fue cargada con éxito
-    '''
 
     if request.method == "POST":
         form = PersonaForm(request.POST)
@@ -53,10 +49,7 @@ def agregar(request):
 
 
 def borrar(request, identificador):
-    '''
-    TODO: agregar un mensaje en el template index.html que avise al usuario que 
-    la persona fue eliminada con éxito        
-    '''
+
     if request.method == "GET":
         persona = Persona.objects.filter(id=int(identificador)).first()
         if persona:
@@ -67,9 +60,7 @@ def borrar(request, identificador):
 
 
 def actualizar(request, identificador=''):
-    '''
-    TODO: implementar una vista para actualización
-    '''
+
     if request.method == "GET":
         persona = get_object_or_404(Persona, pk=int(identificador))
         initial = {
@@ -126,10 +117,6 @@ def registrop(request):
 
 
 def agregarp(request):
-    '''
-    TODO: agregar un mensaje en el template index.html que avise al usuario que 
-    la persona fue cargada con éxito
-    '''
 
     if request.method == "POST":
         form = ProfesorForm(request.POST)
@@ -154,10 +141,7 @@ def agregarp(request):
 
 
 def borrarp(request, identificador):
-    '''
-    TODO: agregar un mensaje en el template index.html que avise al usuario que 
-    la persona fue eliminada con éxito        
-    '''
+
     if request.method == "GET":
         profesor = Profesor.objects.filter(id=int(identificador)).first()
         if profesor:
@@ -168,9 +152,7 @@ def borrarp(request, identificador):
 
 
 def actualizarp(request, identificador):
-    '''
-    TODO: implementar una vista para actualización
-    '''
+
     pass
 
 
@@ -202,10 +184,7 @@ def registrom(request):
 
 
 def agregarm(request):
-    '''
-    TODO: agregar un mensaje en el template index.html que avise al usuario que 
-    la persona fue cargada con éxito
-    '''
+
 
     if request.method == "POST":
         form = MateriasForm(request.POST)
@@ -228,10 +207,7 @@ def agregarm(request):
 
 
 def borrarm(request, identificador=''):
-    '''
-    TODO: agregar un mensaje en el template index.html que avise al usuario que 
-    la persona fue eliminada con éxito        
-    '''
+
     if request.method == "GET":
         materia = Materias.objects.filter(id=int(identificador)).first()
         if materia:
@@ -242,9 +218,7 @@ def borrarm(request, identificador=''):
 
 
 #def actualizarp(request, identificador=''):
-    '''
-    TODO: implementar una vista para actualización
-    '''
+  
     pass
 
 
