@@ -86,7 +86,7 @@ def actualizar(request, identificador=''):
             persona.promocion = form_actualizar.cleaned_data['promocion']
             persona.save()
 
-            return HttpResponseRedirect(reverse("index"))
+            return HttpResponseRedirect(reverse("registroa"))
 
 
 def buscar(request):
