@@ -1,0 +1,62 @@
+{% extends "alumnos/index.html" %}
+
+{% load bootstrap5 %}
+
+{% block cuerpo %}
+
+<main>
+  <h1 class="fs-3 text text-center text-dark pt-3">Registro de libros</h1>
+</main>
+
+<div class="container py-3">     
+    <div class="row">
+      <div class="col">
+          {% if libros %}
+          <table class="table">
+              <thead>
+                  <th scope="col">Identificador</th>
+                  <th scope="col">Autor</th>
+                  <th scope="col">Título</th>
+                  <th scope="col">Copia</th>
+                  <th scope="col">Editorial</th>
+                  <th scope="col">Nivel</th>
+                  <th scope="col">Retirado por:</th>
+              </thead>
+              {% for l in libros %}
+              <tbody>
+                  <tr>
+                      <th scope="row">{{l.id}} </th>
+                      <td> {{l.autor}} </td>
+                      <td> {{l.titulo}} </td>
+                      <td> {{l.copia}} </td>
+                      <td> {{l.editorial}} </td>
+                      <td> {{l.nivel}} </td>
+                      <td> {{l.retiro}} </td>
+                      <td>
+                        {% url 'borrarl' identificador=l.id as borrarl_url %}
+                        {% url 'actualizarl' identificador=l.id as actualizarl_url %} 
+                        {% bootstrap_button "Borrar" size="sm" button_class="btn-danger" button_type="link" href=borrarl_url %}
+                        {% bootstrap_button "Actualizar" size="sm" button_class="btn-success" button_type="link" href=actualizarl_url %}
+                      </td>
+                  </tr>  
+              </tbody>
+              {% endfor %}
+          </table>
+          {% else %}
+              <p>No tienes libros cargados</p>
+          {% endif %}
+      </div>
+    </div>
+  </div>    
+
+  <div class="row text-center w-100">
+      <div class="col pb-3">
+        {% url 'agregarl' as agregarl_url %}
+        {% url 'buscarl' as buscarl_url %}
+        {% bootstrap_button "Agregar" button_class="btn-primary" button_type="link" href=agregarl_url %} 
+        {% bootstrap_button "Buscar" button_class="btn-primary" button_type="link" href=buscarl_url %}  
+      <div>
+    <div>
+<div class="py-3">
+  {% endblock %}
+</div>

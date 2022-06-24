@@ -2,11 +2,12 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadReque
 from django.template import loader
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
-from alumnos.forms import PersonaForm, BuscarPersonasForm, ProfesorForm, BuscarProfesoresForm, BuscarMateriasForm, MateriasForm, ActualizarPersonaForm
+from alumnos.forms import PersonaForm, BuscarPersonasForm, ProfesorForm, BuscarProfesoresForm, BuscarMateriasForm, MateriasForm, ActualizarPersonaForm, BuscarLibroForm, ActualizarLibroForm, LibroForm
 
 from alumnos.models import Persona
 from alumnos.models import Profesor
 from alumnos.models import Materias
+from alumnos.models import Libro 
 
 def index(request):
     personas = Persona.objects.all()
@@ -68,7 +69,7 @@ def actualizar(request, identificador=''):
             "nombre": persona.nombre, 
             "apellido": persona.apellido, 
             "email": persona.email,
-            "fecha_nacimiento": persona.fecha_nacimiento.strftime("%d/%m/%Y"),
+            "fecha_nacimiento": persona.fecha_nacimiento.strftime("%D/%M/%Y"),
             "promocion": persona.promocion,
         }
     
@@ -236,5 +237,98 @@ def buscarm(request):
         
         return  render(request, 'alumnos/lista_materias.html', {"materias": materias})
  
- 
+
+ ###### HASTA QUE EL REGISTRO DE MATERIAS ############
+
+
+def registrol(request):
+    libros = Libro.objects.all()
+    template = loader.get_template('alumnos/lista_libros.html')
+    context = {
+        'libros': libros,
+    }
+    return HttpResponse(template.render(context, request))
+
+
+def agregarl(request):
+
+    if request.method == "POST":
+        form = LibroForm(request.POST)
+        if form.is_valid():
+
+            autor = form.cleaned_data['autor']
+            titulo = form.cleaned_data['titulo']
+            copia = form.cleaned_data['copia']
+            editorial = form.cleaned_data['editorial']
+            nivel = form.cleaned_data['nivel']
+            retiro = form.cleaned_data['retiro']
+            Libro(autor=autor, titulo=titulo, copia=copia, editorial=editorial, nivel=nivel, retiro=retiro).save()
+
+            return HttpResponseRedirect("/registrol/")
+    elif request.method == "GET":
+        form = LibroForm()
+    else:
+        return HttpResponseBadRequest("Error no conozco ese metodo para esta request")
+
+    
+    return render(request, 'alumnos/form_carga_libros.html', {'form': form})
+
+
+def borrarl(request, identificador=''):
+
+    if request.method == "GET":
+        libro = Libro.objects.filter(id=int(identificador)).first()
+        if libro:
+            libro.delete()
+        return HttpResponseRedirect("/registrol/")
+    else:
+        return HttpResponseBadRequest("Error no conozco ese metodo para esta request")
+
+
+
+def actualizarl(request, identificador=''):
+
+    if request.method == "GET":
+        libro = get_object_or_404(Libro, pk=int(identificador))
+        initial = {
+            "id": libro.id,
+            "autor": libro.autor, 
+            "titulo": libro.titulo,
+            "copia": libro.copia,
+            "editorial": libro.editorial,
+            "nivel": libro.nivel,
+            "retiro": libro.retiro,
+        }
+    
+        form_actualizar_libros = ActualizarLibroForm(initial=initial)
+        return render(request, 'alumnos/form_carga_libros.html', {'form': form_actualizar_libros, 'actualizarl': True})
+    
+    elif request.method == "POST":
+        form_actualizar_libros = ActualizarLibroForm(request.POST)
+        if form_actualizar_libros.is_valid():
+            libro = get_object_or_404(Libro, pk=form_actualizar_libros.cleaned_data['id'])
+            libro.autor = form_actualizar_libros.cleaned_data['autor']
+            libro.titulo = form_actualizar_libros.cleaned_data['titulo']
+            libro.copia = form_actualizar_libros.cleaned_data['copia']
+            libro.editorial = form_actualizar_libros.cleaned_data['editorial']
+            libro.nivel = form_actualizar_libros.cleaned_data['nivel']
+            libro.retiro = form_actualizar_libros.cleaned_data['retiro']
+            libro.save()
+
+            return HttpResponseRedirect(reverse("registrol"))
+
+
+def buscarl(request):
+    if request.method == "GET":
+        form_busqueda_libros = BuscarLibroForm()
+        return render(request, 'alumnos/form_busqueda_libros.html', {"form_busqueda_libros": form_busqueda_libros})
+
+    elif request.method == "POST":
+        form_busqueda_libros = BuscarLibroForm(request.POST)
+        if form_busqueda_libros.is_valid():
+            palabra_a_buscar = form_busqueda_libros.cleaned_data['palabra_a_buscar']
+            libros = Libro.objects.filter(titulo__icontains=palabra_a_buscar)
+            
+        
+        return  render(request, 'alumnos/lista_libros.html', {"libros": libros})
  

@@ -1,0 +1,33 @@
+{% extends "alumnos/index.html" %}
+
+{% load bootstrap5 %}
+
+{% block cuerpo %}
+<div class="container">
+   <div class="row">
+     <div class="col">
+      <h3 class="py-2 text-dark text-center">Carga de libros</h3>
+     </div>
+     </div>
+     <div class="row">
+     <div class="col">
+      
+        {% if actualizarl %}
+          <form action="{% url 'actualizarl_action' %}" method="post">
+        {% else %}     
+          <form action="{% url 'agregarl' %}" method="post">
+        {% endif %}
+
+         {% csrf_token %} 
+         {% bootstrap_form form %}
+         {% if actualizarl %}
+         {% bootstrap_button "Actualizar" button_type="submit" button_class="btn-success" href=actualizarl_url %} 
+        
+       {% endif %}
+
+      </form>
+     </div>
+   </div>
+ </div>
+
+{% endblock %}

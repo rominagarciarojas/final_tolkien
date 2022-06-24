@@ -1,0 +1,22 @@
+{% extends "alumnos/index.html" %}
+
+{% load bootstrap5 %}
+
+{% block cuerpo %}
+<div class="container">
+   <div class="row">
+     <div class="col">
+      <h3 class="py-2 text-dark text-center pt-3">Buscar libro</h3>
+     </div>
+     </div>
+     <div class="row">
+     <div class="col">
+      <form action="{% url  'buscarl' %}" method="post">
+         {% csrf_token %} 
+         {% bootstrap_form form_busqueda_libros %}
+         {% bootstrap_button "Buscar" button_type="submit" button_class="btn-primary" %}
+      </form>
+     </div>
+   </div>
+ </div>
+{% endblock %}

@@ -28,3 +28,12 @@ class Materias(models.Model):
     curso = models.IntegerField()
     docente = models.CharField(max_length=100)
     modalidad = models.CharField(max_length=100)
+
+class Libro(models.Model):
+    autor = models.CharField(max_length=200)
+    titulo = models.CharField(max_length=200)
+    copia = models.IntegerField()
+    editorial = models.CharField(max_length=200)
+    nivel = models.CharField(max_length=200)
+    retiro = models.CharField(max_length=200)
+
